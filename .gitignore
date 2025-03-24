@@ -1,0 +1,43 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+# app/build/ 디렉토리 제외
+/app/build/
+
+# Android/IntelliJ IDEA 관련 파일
+.idea/
+*.iml
+
+# Android 빌드 폴더
+/build/
+
+# 로컬 환경 설정 파일
+local.properties
+
+# Gradle 캐시
+.gradle/
+
+# Android Studio 작업 디렉토리
+/.idea/
+
+# 로그 파일
+*.log
+
+# OS 파일 (예: macOS, Windows)
+.DS_Store
+Thumbs.db
+
+/app/android-key.keystore
+
