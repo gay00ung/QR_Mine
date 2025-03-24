@@ -21,9 +21,9 @@ android {
     signingConfigs {
         register("release") {
             storeFile = file("android-key.keystore")
-            storePassword = "950608"
-            keyAlias = "android-key"
-            keyPassword = "950608"
+            storePassword = project.findProperty("KEYSTORE_PASSWORD")?.toString()
+            keyAlias = project.findProperty("KEY_ALIAS")?.toString()
+            keyPassword = project.findProperty("KEY_PASSWORD")?.toString()
             enableV4Signing = true
         }
     }
