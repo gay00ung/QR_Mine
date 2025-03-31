@@ -1,13 +1,9 @@
 package net.ifmain.qr_mine.ui.screen
 
 import android.annotation.SuppressLint
-import android.graphics.Bitmap
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,26 +15,19 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.MultiFormatWriter
-import com.google.zxing.common.BitMatrix
-import com.journeyapps.barcodescanner.BarcodeEncoder
-import net.ifmain.qr_mine.R
 import net.ifmain.qr_mine.ui.components.InputSection
 import net.ifmain.qr_mine.ui.components.TopBar
 import net.ifmain.qr_mine.ui.theme.SkyBlue
@@ -48,7 +37,8 @@ import net.ifmain.qr_mine.viewmodel.MainViewModel
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreen(
-    viewModel: MainViewModel
+    viewModel: MainViewModel,
+    onNavigateToLicense: () -> Unit = {},
 ) {
     val userURL by viewModel.userURL
     val qrBitmap by viewModel.qrBitmap
@@ -131,6 +121,27 @@ fun MainScreen(
                             Text(text = "저장하기")
                         }
                     }
+                }
+            }
+        },
+        bottomBar = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 60.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Button(
+                    onClick = {
+                        onNavigateToLicense()
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.LightGray)
+                ) {
+                    Text(
+                        text = "License",
+                        color = Color.LightGray,
+                        style = MaterialTheme.typography.bodySmall,
+                    )
                 }
             }
         }
