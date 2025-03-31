@@ -44,7 +44,7 @@ fun InputSection(userURL: String, onUserURLChange: (String) -> Unit, onSubmit: (
                 focusedLabelColor = SkyBlue,
                 unfocusedLabelColor = Color.LightGray,
             ),
-            textStyle = TextStyle(color = SoftIvory)
+            textStyle = TextStyle(color = Color.DarkGray),
         )
         Button(
             onClick = onSubmit,
