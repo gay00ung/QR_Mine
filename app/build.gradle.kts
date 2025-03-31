@@ -13,7 +13,7 @@ android {
         minSdk = 26
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -21,9 +21,9 @@ android {
     signingConfigs {
         register("release") {
             storeFile = file("android-key.keystore")
-            storePassword = "950608"
-            keyAlias = "android-key"
-            keyPassword = "950608"
+            storePassword = project.findProperty("KEYSTORE_PASSWORD")?.toString()
+            keyAlias = project.findProperty("KEY_ALIAS")?.toString()
+            keyPassword = project.findProperty("KEY_PASSWORD")?.toString()
             enableV4Signing = true
         }
     }
@@ -36,7 +36,7 @@ android {
                 "proguard-rules.pro"
             )
             signingConfig = signingConfigs["release"]
-            isDebuggable = true
+            isDebuggable = false
         }
     }
     compileOptions {
@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -68,4 +69,38 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // QR Library
+    implementation (libs.zxing.android.embedded)
+
+    // Lottie
+    implementation (libs.lottie.compose)
+}
+
+androidComponents {
+    onVariants { variant ->
+        val versionName = android.defaultConfig.versionName
+        variant.outputs.forEach { output ->
+            if (output is com.android.build.api.variant.impl.VariantOutputImpl) {
+                output.outputFileName = "qrmine_${versionName}.apk"
+            }
+        }
+
+        tasks.configureEach {
+            if (name == "bundle${variant.name.capitalize()}") {
+                doLast {
+                    val aabDir = file("${buildDir}/outputs/bundle/${variant.name}/")
+                    val aabFile = aabDir.listFiles()?.find { it.extension == "aab" }
+
+                    if (aabFile != null) {
+                        val newAabFile = File(aabDir, "qrmine_${versionName}.aab")
+                        aabFile.renameTo(newAabFile)
+                        println("✅ AAB renamed to: ${newAabFile.name}")
+                    } else {
+                        println("⚠️ No AAB file found in ${aabDir.path}")
+                    }
+                }
+            }
+        }
+    }
 }
