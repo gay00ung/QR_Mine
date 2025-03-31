@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import net.ifmain.qr_mine.ui.theme.SkyBlue
@@ -22,6 +23,8 @@ import net.ifmain.qr_mine.ui.theme.SoftIvory
 
 @Composable
 fun InputSection(userURL: String, onUserURLChange: (String) -> Unit, onSubmit: () -> Unit) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -47,7 +50,10 @@ fun InputSection(userURL: String, onUserURLChange: (String) -> Unit, onSubmit: (
             textStyle = TextStyle(color = Color.DarkGray),
         )
         Button(
-            onClick = onSubmit,
+            onClick = {
+                onSubmit()
+                keyboardController?.hide()
+            },
             modifier = Modifier.size(80.dp, 48.dp),
             colors = ButtonDefaults.buttonColors(containerColor = SkyBlue, contentColor = SoftIvory)
         ) {

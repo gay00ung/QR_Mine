@@ -2,6 +2,7 @@ package net.ifmain.qr_mine.ui.screen
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -39,6 +40,7 @@ import net.ifmain.qr_mine.ui.theme.SkyBlue
 fun IntroScreen(
     onNavigateToMain: () -> Unit
 ) {
+    val colorScheme = MaterialTheme.colorScheme
     val appName = stringResource(R.string.app_name)
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lottie_qr))
     val lottieAnimatable = rememberLottieAnimatable()
@@ -61,7 +63,9 @@ fun IntroScreen(
     }
 
     BoxWithConstraints(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(colorScheme.background),
         contentAlignment = Alignment.Center
     ) {
         val screenHeight = maxHeight.value
