@@ -16,6 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import net.ifmain.qr_mine.ui.screen.IntroScreen
+import net.ifmain.qr_mine.ui.screen.LicenseScreen
 import net.ifmain.qr_mine.ui.screen.MainScreen
 import net.ifmain.qr_mine.ui.theme.QR_MineTheme
 import net.ifmain.qr_mine.viewmodel.MainViewModel
@@ -58,8 +59,16 @@ fun StartNavigation(
         }
         composable("main_screen") {
             MainScreen(
-                viewModel = viewModel
+                viewModel = viewModel,
+                onNavigateToLicense = {
+                    navController.navigate("license_screen") {
+                        popUpTo("main_screen") { inclusive = false }
+                    }
+                },
             )
+        }
+        composable("license_screen") {
+            LicenseScreen()
         }
     }
 
