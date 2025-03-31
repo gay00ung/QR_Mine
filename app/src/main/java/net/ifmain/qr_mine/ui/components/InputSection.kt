@@ -1,4 +1,4 @@
-package net.ifmain.qr_mine.ui.screen
+package net.ifmain.qr_mine.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

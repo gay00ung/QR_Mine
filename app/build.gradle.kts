@@ -72,4 +72,7 @@ dependencies {
 
     // QR Library
     implementation (libs.zxing.android.embedded)
+
+    // Lottie
+    implementation (libs.lottie.compose)
 }

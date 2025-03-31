@@ -20,25 +20,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import net.ifmain.qr_mine.R
+import net.ifmain.qr_mine.ui.components.InputSection
+import net.ifmain.qr_mine.ui.components.TopBar
 import net.ifmain.qr_mine.viewmodel.MainViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScreen(viewModel: MainViewModel) {
+fun MainScreen(
+    viewModel: MainViewModel
+) {
     var userURL by remember { mutableStateOf("") }
     val context = LocalContext.current
-    var backPressedOnce by remember { mutableStateOf(false) }
-
-    BackHandler {
-        if (backPressedOnce) {
-            (context as? ComponentActivity)?.finish()
-        } else {
-            backPressedOnce = true
-            Toast.makeText(context, "한 번 더 뒤로가기를 누르면 앱이 종료됩니다.", Toast.LENGTH_SHORT).show()
-        }
-    }
 
     Scaffold(
         topBar = {
