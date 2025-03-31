@@ -13,7 +13,7 @@ android {
         minSdk = 26
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -36,7 +36,7 @@ android {
                 "proguard-rules.pro"
             )
             signingConfig = signingConfigs["release"]
-            isDebuggable = true
+            isDebuggable = false
         }
     }
     compileOptions {
@@ -75,4 +75,32 @@ dependencies {
 
     // Lottie
     implementation (libs.lottie.compose)
+}
+
+androidComponents {
+    onVariants { variant ->
+        val versionName = android.defaultConfig.versionName
+        variant.outputs.forEach { output ->
+            if (output is com.android.build.api.variant.impl.VariantOutputImpl) {
+                output.outputFileName = "qrmine_${versionName}.apk"
+            }
+        }
+
+        tasks.configureEach {
+            if (name == "bundle${variant.name.capitalize()}") {
+                doLast {
+                    val aabDir = file("${buildDir}/outputs/bundle/${variant.name}/")
+                    val aabFile = aabDir.listFiles()?.find { it.extension == "aab" }
+
+                    if (aabFile != null) {
+                        val newAabFile = File(aabDir, "qrmine_${versionName}.aab")
+                        aabFile.renameTo(newAabFile)
+                        println("✅ AAB renamed to: ${newAabFile.name}")
+                    } else {
+                        println("⚠️ No AAB file found in ${aabDir.path}")
+                    }
+                }
+            }
+        }
+    }
 }
