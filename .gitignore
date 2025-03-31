@@ -40,6 +40,6 @@ local.properties
 Thumbs.db
 
 /app/android-key.keystore
-gradle.properties
 
 gradle.properties
+/gradle.properties
