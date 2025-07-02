@@ -50,4 +50,4 @@ qr-mine/
 ## 👩‍💻 개발자
 - **신가영** ([GitHub](https://github.com/gay00ung))
 
-> 본 앱은 개인 프로젝트로 개발되어 [Google Play 스토어](https://play.google.com/store/apps/details?id=com.worgle.worgle)에 실제 출시되었습니다.
+> 본 앱은 개인 프로젝트로 개발되어 [Google Play 스토어](https://play.google.com/store/apps/details?id=net.ifmain.qr_mine)에 실제 출시되었습니다.
